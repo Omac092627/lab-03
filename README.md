@@ -63,5 +63,26 @@ How are we implementing it?
 Style your application using floats.
 Utilize at least one Google font.
 
+Number and name of feature: #4 and Pagination Feature
+
+Estimate of time needed to complete: 1 hour
+
+Start time: 12pm
+
+Finish time: 2pm
+
+Actual time needed to complete: 2 hours
+
+Add this information to your README.
+
+Feature 1: Pagination
+Why are we implementing this feature?
+As a user, I want to have the ability to view additional images so that my view does not become cluttered.
+What are we going to implement?
+Given that a user opens the application in the browser When the user clicks on a button or link to another page Then the other set of images should be dynamically displayed
+
+How are we implementing it?
+Add navigation for the user to switch between two pages. Each page should render a unique set of images from one of the two provided JSON files.
+Reset the filters, then repopulate them using only keywords from the images currently being displayed.
 
 sources included w3 schools.
