@@ -4,26 +4,50 @@
     <title>The Gallery of Horns</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link  href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Comic+Neue&display=swap" rel="stylesheet">
     <script  id="eastWood" type="x-tmpl-mustache">
-      <h2 id="{{title}}">{{title}}</h2>
-      <img id="{{images}}" src="{{image_url}}" alt="{{title}}" >
-      <p id="{{description}}">{{description}}</p>
+      <section title="{{title}}" id="{{keyword}}">
+        <h2 id="{{title}}">{{title}}</h2>
+        <img id="{{images}}" src="{{url}}" alt="{{title}}" >
+        <p id="{{description}}">{{description}}</p>
+        <p id="{{horns}}">HORNS: {{horns}}</p>
+      </section>
     </script>
+        <script  id="poop" type="x-tmpl-mustache">
+          <section title="{{title}}" id="{{keyword}}">
+            <h2 id="{{title}}">{{title}}</h2>
+            <img id="{{images}}" src="{{url}}" alt="{{title}}" >
+            <p id="{{description}}">{{description}}</p>
+            <p id="{{horns}}">HORNS: {{horns}}</p>
+          </section>
+        </script>
   </head>
   <body>
+    
+    <h1>The Gallery of Horns</h1>
+
     <header>
-      <h1>The Gallery of Horns</h1>
-      <select>
+      <select id="selectOpt">
         <option value="default">Filter by Keyword</option>
       </select>
+      <form id="one" action="">
+        <p>SEARCH BY TITLES OR BY HOW MANY HORNS A CREATURE HAS</p>
+        <input id="form1A" type="text" placeholder="Search" name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
     </header>
-    <main>
-      <section id="photo-template">
-      </section>
-      <section id="photo-template2">
-      </section>
+    <div id="pages">
+      <span id="pageOne">Page 1</span> 
+      <span id="pageTwo">Page 2</span> 
+    </div>
+
+    <main id="creaturesClass">
     </main>
+    <main id="creaturesClass2">
+
+    </main>
+
     <footer>
       &copy; 2018 Code Fellows
     </footer>

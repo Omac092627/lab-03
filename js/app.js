@@ -2,8 +2,11 @@
 
 let infoArray = [];
 let name = [];
+let nameTwo = [];
+let titles = [];
+let horns = [];
 
-function SonStuff(creature){
+function SonStuff(creature) {
     this.url = creature.image_url;
     this.title = creature.title;
     this.description = creature.description;
@@ -12,54 +15,115 @@ function SonStuff(creature){
     infoArray.push(this);
 };
 
-// SonStuff.prototype.render = function(){
-//     let $clone = $('.photo-template').clone();
-//     $clone.find('h2').text(this.title);
-//     $clone.find('img').attr('src', this.url);
-//     $clone.find('img').attr('alt', this.title);
-//     $clone.find('p').text(this.description);
-//     $clone.removeClass('photo-template');
-//     $clone.attr('class', this.keyword);
-//     $('main').append($clone);
-// };
 
 //we want to render using the mustache method//
 
-function renderAnimal(animal){
-    let $target = $('#photo-template');
-    let templateMarkup = $('#eastWood').html();
-    let newMarkup = Mustache.render(templateMarkup, animal);
+function renderCreatures(creature, sourceID, target) {
+    let $target = $(target);
+    let $templateMarkUp = $(sourceID).html();
+    let newMarkup = Mustache.render($templateMarkUp, creature)
     $target.append(newMarkup);
 }
 
 
 
 
-
 $('select').on('change', displayImages);
+$('#one').on('submit', displayTitleImages)
 
-function displayImages(){
- 
+function displayTitleImages() {
+    let submitted = $(this).val();
+    titles.forEach((title, idx) => {
+        $('#one').filter(title);
+        if (submitted === null || submitted === 'submit') {
+            $('section').show();
+        } else {
+            $('section').hide();
+            $(`${submitted}`).show();
+        }
 
-};
+    });
+}
+function displayImages() {
+    let $picked = $(this).val();
+    console.log($picked);
+    if ($picked) {
+        $('section').hide();
+        $(`#${$picked}`).show();
+    
+    } 
+}
 
-$(document).ready(function(){
+function forPageOne() {
+    $('#creaturesClass2').hide();
+    $('#creaturesClass').show();
+}
+
+
+function forPageTwo() {
+    $('#creaturesClass').hide();
+    $('#creaturesClass2').show();
+
+}
+
+
+
+$(document).ready(function () {
     $.ajax('/data/page-1.json')
-        .then(data =>{
-            data.forEach((animal) => {
+        .then(data => {
+            data.forEach((creature, idx) => {
 
-             renderAnimal(animal);
+                let all = new SonStuff(creature);
+                renderCreatures(all, '#eastWood', '#creaturesClass');
 
-            if(!name.includes(animal.keyword)){
-                name.push(animal.keyword);
-            }
-            
+
+                if (!name.includes(creature.keyword)) {
+                    name.push(creature.keyword);
+                }
+                if (!titles.includes(creature.title)) {
+                    titles.push(creature.title);
+                }
+                if (!horns.includes(creature.horns)) {
+                    horns.push(creature.horns)
+                }
             })
+            $('#pageOne').on('click', pageOne);
+            function pageOne() {
+                $('#pageOne').html(forPageOne());
 
-            name.sort();
-            for (let i = 0; i < name.length; i++){
+            }
+
+            for (let i = 0; i < name.length; i++) {
                 $('select').append(`<option value="${name[i]}">${name[i]}</option>`);
             }
+            $("#form1A").on("keyup", function () {
+                let value = $(this).val().toLowerCase();
+                $("section").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    name.sort();
+                    titles.sort();
+                });
+            });
         });
+
+    $.ajax('/data/page-2.json')
+        .then(data => {
+            data.forEach((creature, idx) => {
+                let allTwo = new SonStuff(creature);
+                renderCreatures(allTwo, '#poop', '#creaturesClass2')
+
+                if (!nameTwo.includes(creature.keyword)) {
+                    nameTwo.push(creature.keyword);
+                }
+            })
+            for (let i = 0; i < nameTwo.length; i++) {
+                $('select').append(`<option value="${nameTwo[i]}"> ${nameTwo[i]}</option>`);
+            }
+            nameTwo.sort();
+        })
+    $('#pageTwo').on('click', pageOne);
+    function pageOne() {
+        $('#pageTwo').html(forPageTwo());
+    }
 });
 
