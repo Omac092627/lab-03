@@ -47,7 +47,9 @@ function displayTitleImages() {
 function displayImages() {
     let $picked = $(this).val();
     console.log($picked);
-    if ($picked) {
+    if ($picked === 'default'){
+        $('section').show();
+    } else{
         $('section').hide();
         $(`#${$picked}`).show();
     
